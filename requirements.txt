@@ -72,7 +72,7 @@ terminado==0.8.3
 testpath==0.4.4
 threadpoolctl==2.1.0
 toml==0.10.1
-tornado==6.0.4
+tornado==6.4.1
 tox==3.17.1
 traitlets==4.3.3
 urllib3==1.25.10
