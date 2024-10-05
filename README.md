@@ -1,7 +1,3 @@
-<p align="center"><img width=100% src="https://github.com/Nohossat/exploradome_tangram/blob/numpy---team-4/data/imgs/logo.jpg"></p>
-
-
-![Python](https://img.shields.io/badge/python-v3.6+-blue.svg)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 
@@ -32,8 +28,6 @@ Within the framework of the project, 12 tangram selected shapes act as classes f
 - Rabbit (Lapin)
 - Swan (Cygne)
 - Turtle (Tortue)
-
-<p align="center"><img width=100% src="https://github.com/Nohossat/exploradome_tangram/blob/numpy---team-4/data/imgs/Montages.jpg"></p>
 
 
 ## Installation
