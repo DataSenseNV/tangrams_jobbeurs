@@ -75,7 +75,7 @@ toml==0.10.1
 tornado==6.0.4
 tox==3.17.1
 traitlets==4.3.3
-urllib3==1.25.10
+urllib3==1.26.19
 virtualenv==20.0.27
 wcwidth==0.2.5
 webencodings==0.5.1
