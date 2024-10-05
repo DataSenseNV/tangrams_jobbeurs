@@ -1,0 +1,39 @@
+services:
+  python:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: python_container
+    volumes:
+      - .:/app
+    working_dir: /workspaces/tangrams_jobbeurs
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+    networks:
+      - tangramnetwork
+
+  db:
+    image: postgres:15
+    container_name: postgres_container
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - tangramnetwork
+
+volumes:
+  postgres_data:
+
+networks:
+  tangramnetwork:
+    driver: bridge

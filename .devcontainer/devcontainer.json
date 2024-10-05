@@ -1,0 +1,25 @@
+{
+	"name": "Tangrams Dev Container",
+
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+
+	"customizations": {
+		"vscode": {
+			"settings": { 
+				"python.defaultInterpreterPath": "/usr/local/bin/python"
+			},
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-python.black-formatter",
+				"ms-toolsai.jupyter",
+				"ms-toolsai.jupyter-renderers",
+				"christian-kohler.path-intellisense"
+			]
+		}
+	},
+
+	"runArgs": ["--name", "tangrams-dev-container"]
+}
