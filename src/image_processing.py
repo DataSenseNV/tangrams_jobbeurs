@@ -1,13 +1,14 @@
 import cv2
 import streamlit as st
 
+
 class Camera:
     def __init__(self) -> None:
         self.available_cameras = self._get_available_cameras()
         self.current_camera_index = -1
         self.current_video_capture = None
         self.last_frame = None
-        if 'last_frame' not in st.session_state:
+        if "last_frame" not in st.session_state:
             st.session_state.last_frame = None
 
     def _get_available_cameras(self) -> list:
@@ -24,21 +25,21 @@ class Camera:
             cap.release()
             index += 1
         return available_cameras
-    
+
     def set_active_camera(self, index: int):
         if index in self.available_cameras:  # Ensure the camera index is valid
             self.current_camera_index = index
             self.current_video_capture = cv2.VideoCapture(index)
         else:
             st.write(f"Camera with index {index} not available.")
-    
+
     def take_image(self, is_capturing: bool, frame_placeholder):
         if not is_capturing:
             return
 
         if not self.current_video_capture.isOpened() and is_capturing:
             self.current_video_capture = cv2.VideoCapture(self.current_camera_index)
-        
+
         while is_capturing:
             ret, frame = self.current_video_capture.read()
             if not ret:
@@ -53,4 +54,3 @@ class Camera:
 
     def process(image):
         pass
-

@@ -5,15 +5,17 @@ import numpy as np
 def find_moments(cnts, filename=None, hu_moment=True):
     # Retrieve moments of all shapes identified
     lst_moments = [cv2.moments(c) for c in cnts]
-    
+
     # Retrieve areas of all shapes
     lst_areas = [i["m00"] for i in lst_moments]
 
     # Sort the contours by area (ignoring zero areas) and get the second largest
-    sorted_idx = lst_areas.index(max(lst_areas))  #sorted(range(len(lst_areas)), key=lambda i: lst_areas[i], reverse=True)
+    sorted_idx = lst_areas.index(
+        max(lst_areas)
+    )  # sorted(range(len(lst_areas)), key=lambda i: lst_areas[i], reverse=True)
     print(sorted_idx)
     # Select the second largest area
-    #if len(sorted_idx) < 2:
+    # if len(sorted_idx) < 2:
     #    raise ValueError("Less than two valid contours available.")
 
     second_largest_idx = sorted_idx  # The second largest contour
@@ -27,18 +29,19 @@ def find_moments(cnts, filename=None, hu_moment=True):
     # If we want to get the moments instead
     Moms = lst_moments[second_largest_idx]
     if filename:
-        Moms['target'] = filename
+        Moms["target"] = filename
     return Moms, cnts[second_largest_idx]
+
 
 # Functie om verschil tussen Hu moments te berekenen
 def compare_hu_moments(hu1, hu2):
     # Vergelijk de Hu-momenten met de logaritmische schaal
     return np.sum(np.abs(np.log(np.abs(hu1) + 1e-10) - np.log(np.abs(hu2) + 1e-10)))
 
-    
-def detect_imgae():    
+
+def detect_imgae():
     # Stap 1: Laad de afbeelding
-    image = cv2.imread('tangram_creations/original_cat.png')
+    image = cv2.imread("test_img.png")
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # Stap 2: Schittering maskeren (verwijder heldere gebieden)
@@ -71,23 +74,22 @@ def detect_imgae():
     moms, cnt = find_moments(filtered_contours)
     print(moms)
     for i, cnt in enumerate([cnt]):
-        x,y = cnt[0,0]
+        x, y = cnt[0, 0]
         moments = cv2.moments(cnt)
         hm = cv2.HuMoments(moments)
-        cv2.drawContours(image, [cnt], -1, (0,255,255), 3)
-        cv2.putText(image, f'Contour {i+1}', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 0), 2)
-
+        cv2.drawContours(image, [cnt], -1, (0, 255, 255), 3)
+        cv2.putText(image, f"Contour {i+1}", (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 0), 2)
 
     # Stap 9: Toon het resultaat
-    cv2.imshow('Contours', image)
-    cv2.imshow('thresh', ret)
+    cv2.imshow("Contours", image)
+    cv2.imshow("thresh", ret)
 
-    return moms, cnt
+    return moms
 
 
-def detect_imgae2():    
+def detect_imgae2():
     # Stap 1: Laad de afbeelding
-    image = cv2.imread('tangram_creations/cat_2.jpg')
+    image = cv2.imread("test.png")
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # Stap 2: Schittering maskeren (verwijder heldere gebieden)
@@ -118,30 +120,25 @@ def detect_imgae2():
     filtered_contours = [cnt for cnt in contours if cv2.contourArea(cnt) > min_area]
 
     moms, cnt = find_moments(filtered_contours)
-   
-    
+
     print(moms)
     for i, cnt in enumerate([cnt]):
-        x,y = cnt[0,0]
+        x, y = cnt[0, 0]
         moments = cv2.moments(cnt)
         hm = cv2.HuMoments(moments)
-        cv2.drawContours(image, [cnt], -1, (0,255,255), 3)
-        cv2.putText(image, f'Contour {i+1}', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 0), 2)
-
+        cv2.drawContours(image, [cnt], -1, (0, 255, 255), 3)
+        cv2.putText(image, f"Contour {i+1}", (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 0), 2)
 
     # Stap 9: Toon het resultaat
-    cv2.imshow('Contours2', image)
-    cv2.imshow('thresh2', ret)
+    cv2.imshow("Contours2", image)
+    cv2.imshow("thresh2", ret)
 
-    return moms, cnt
+    return moms
 
-hu1, cnt1 = detect_imgae()
-hu2, cnt2 = detect_imgae2()
+
+hu1 = detect_imgae()
+hu2 = detect_imgae2()
 hu_difference = compare_hu_moments(hu1, hu2)
-
-
-print(cv2.matchShapes(cnt1,cnt2,1,0.0))
-
 print(f"Het verschil tussen de Hu momenten van de twee tangrams is: {hu_difference}")
 
 
