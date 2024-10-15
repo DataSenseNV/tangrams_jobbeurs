@@ -22,5 +22,6 @@ scikit-learn
 scipy
 setuptools
 six
+streamlit
 threadpoolctl
 tzdata
