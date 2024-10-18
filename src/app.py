@@ -1,6 +1,7 @@
-import streamlit as st
-import cv2
 from image_processing import Camera
+from tangram import TangramImage
+import cv2
+import streamlit as st
 
 
 def define_page():
